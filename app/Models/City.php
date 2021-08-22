@@ -26,12 +26,32 @@ class City extends Model
     ];
 
     /**
-     * Get the clients for the city.
+     * Make attributes available in the json response
+     *
+     * @var array
+     */
+    protected $appends = [
+        'clients_number'
+    ];
+
+    /**
+     * Get the clients for the city
      *
      * @return \App\Models\Client
      */
     public function clients()
     {
         return $this->hasMany(Client::class);
+    }
+
+
+    /**
+     * Custom clients_number attribute for city model
+     *
+     * @return int
+     */
+    public function getClientsNumberAttribute()
+    {
+        return $this->clients()->count();
     }
 }

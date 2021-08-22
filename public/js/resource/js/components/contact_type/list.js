@@ -141,9 +141,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     filteredContactTypes: function filteredContactTypes() {
       var _this3 = this;
 
-      return this.contact_types.filter(function (c) {
+      return this.contact_types.filter(function (contact_type) {
         if (_this3.filter == '') return true;
-        return c.name.toLowerCase().indexOf(_this3.filter.toLowerCase()) >= 0;
+        return contact_type.name.toLowerCase().indexOf(_this3.filter.toLowerCase()) >= 0;
       });
     },
     sortedContactTypes: function sortedContactTypes() {
@@ -1022,7 +1022,7 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "btn btn-primary",
+            staticClass: "btn btn-success",
             on: {
               click: function($event) {
                 return _vm.getContactTypes()
@@ -1133,21 +1133,23 @@ var render = function() {
                               [_vm._v("Edit")]
                             ),
                             _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-danger",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.deleteContactType(
-                                      contact_type.id
-                                    )
-                                  }
-                                }
-                              },
-                              [_vm._v("Delete")]
-                            )
+                            contact_type.clients_number == 0
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-danger",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.deleteContactType(
+                                          contact_type.id
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Delete")]
+                                )
+                              : _vm._e()
                           ],
                           1
                         )

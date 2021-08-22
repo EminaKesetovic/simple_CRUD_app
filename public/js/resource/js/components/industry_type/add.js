@@ -101,13 +101,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 4:
-                _this.errors = [];
-
                 if (!_this.industry_type.name) {
                   _this.errors.push('Name required.');
                 }
 
-              case 6:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -1020,7 +1018,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "text" },
+                      attrs: { type: "text", maxlength: "250" },
                       domProps: { value: _vm.industry_type.name },
                       on: {
                         input: function($event) {

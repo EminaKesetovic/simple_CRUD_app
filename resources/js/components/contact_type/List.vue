@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col-12 mb-2 text-end">
-            <button class="btn btn-primary" @click="getContactTypes()">Refresh</button>
+            <button class="btn btn-success" v-on:click="getContactTypes()">Refresh</button>
             <router-link :to='{name:"contactTypeAdd"}' class="btn btn-primary">Create</router-link>
         </div>
         <div class="col-12">
@@ -30,7 +30,7 @@
                                     <td>{{ contact_type.name }}</td>
                                     <td>
                                         <router-link :to='{name:"contactTypeEdit",params:{id:contact_type.id}}' class="btn btn-success">Edit</router-link>
-                                        <button type="button" @click="deleteContactType(contact_type.id)" class="btn btn-danger">Delete</button>
+                                        <button v-if="contact_type.clients_number == 0" type="button" v-on:click="deleteContactType(contact_type.id)" class="btn btn-danger">Delete</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -89,9 +89,9 @@ export default {
     },
     computed:{
         filteredContactTypes() {
-            return this.contact_types.filter(c => {
+            return this.contact_types.filter(contact_type => {
                 if(this.filter == '') return true;
-                return c.name.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0;
+                return contact_type.name.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0;
             })
         },
         sortedContactTypes:function() {

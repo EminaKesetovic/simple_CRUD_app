@@ -24,7 +24,9 @@ class ClientRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:150'
+            'address' => 'required|max:250',
+            'city_id' => 'required|exists:cities,id',
+            'country_id' => 'required|exists:countries,id'
         ];
     }
 }

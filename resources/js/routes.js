@@ -16,6 +16,11 @@ const IndustryTypeList = () => import('./components/industry_type/List.vue' /* w
 const IndustryTypeCreate = () => import('./components/industry_type/Add.vue' /* webpackChunkName: "resource/js/components/industry_type/add" */)
 const IndustryTypeEdit = () => import('./components/industry_type/Edit.vue' /* webpackChunkName: "resource/js/components/industry_type/edit" */)
 
+const ClientList = () => import('./components/client/List.vue' /* webpackChunkName: "resource/js/components/client/list" */)
+const ClientCreate = () => import('./components/client/Add.vue' /* webpackChunkName: "resource/js/components/client/add" */)
+const ClientEdit = () => import('./components/client/Edit.vue' /* webpackChunkName: "resource/js/components/client/edit" */)
+const ClientShow = () => import('./components/client/Show.vue' /* webpackChunkName: "resource/js/components/client/show" */)
+
 export const routes = [
     {
         name: 'home',
@@ -84,5 +89,26 @@ export const routes = [
         name: 'industryTypeAdd',
         path: '/industry_type/add',
         component: IndustryTypeCreate
+    },
+
+    {
+        name: 'clientList',
+        path: '/client',
+        component: ClientList
+    },
+    {
+        name: 'clientEdit',
+        path: '/client/:id/edit',
+        component: ClientEdit
+    },
+    {
+        name: 'clientAdd',
+        path: '/client/add',
+        component: ClientCreate
+    },
+    {
+        name: 'clientShow',
+        path: '/client/:id',
+        component: ClientShow
     }
 ]

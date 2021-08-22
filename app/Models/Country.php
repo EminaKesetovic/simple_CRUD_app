@@ -26,12 +26,31 @@ class Country extends Model
     ];
 
     /**
-     * Get the clients for the country.
+     * Make attributes available in the json response
+     *
+     * @var array
+     */
+    protected $appends = [
+        'clients_number'
+    ];
+
+    /**
+     * Get the clients for the country
      *
      * @return \App\Models\Client
      */
     public function clients()
     {
         return $this->hasMany(Client::class);
+    }
+
+    /**
+     * Custom clients_number attribute for country model
+     *
+     * @return int
+     */
+    public function getClientsNumberAttribute()
+    {
+        return $this->clients()->count();
     }
 }

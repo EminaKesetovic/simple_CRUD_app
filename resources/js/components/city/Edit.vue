@@ -19,7 +19,7 @@
                             <div class="col-12 mb-2">
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input type="text" class="form-control" v-model="city.name">
+                                    <input type="text" class="form-control" maxlength="150" v-model="city.name">
                                 </div>
                             </div>
                             <div class="col-12">
@@ -67,8 +67,6 @@ export default {
                     console.log(error)
                 })
             }
-
-            this.errors = [];
 
             if (!this.city.name) {
                 this.errors.push('Name required.');

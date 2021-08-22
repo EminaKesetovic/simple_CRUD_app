@@ -129,13 +129,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 4:
-                _this2.errors = [];
-
                 if (!_this2.contact_type.name) {
                   _this2.errors.push('Name required.');
                 }
 
-              case 6:
+              case 5:
               case "end":
                 return _context2.stop();
             }
@@ -1048,7 +1046,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "text" },
+                      attrs: { type: "text", maxlength: "100" },
                       domProps: { value: _vm.contact_type.name },
                       on: {
                         input: function($event) {

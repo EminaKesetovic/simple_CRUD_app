@@ -26,12 +26,31 @@ class IndustryType extends Model
     ];
 
     /**
-     * Get the clients for the industry type.
+     * Make attributes available in the json response
+     *
+     * @var array
+     */
+    protected $appends = [
+        'clients_number'
+    ];
+
+    /**
+     * Get the clients for the industry type
      *
      * @return \App\Models\Client
      */
     public function clients()
     {
         return $this->hasMany(Client::class);
+    }
+
+    /**
+     * Custom clients_number attribute for industry type model
+     *
+     * @return int
+     */
+    public function getClientsNumberAttribute()
+    {
+        return $this->clients()->count();
     }
 }

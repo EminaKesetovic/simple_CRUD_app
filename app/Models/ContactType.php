@@ -26,12 +26,31 @@ class ContactType extends Model
     ];
 
     /**
-     * The clients that belong to the contact type.
+     * Make attributes available in the json response
+     *
+     * @var array
+     */
+    protected $appends = [
+        'clients_number'
+    ];
+
+    /**
+     * The clients that belong to the contact type
      *
      * @return \App\Models\ContactType
      */
     public function clients()
     {
         return $this->belongsToMany(Client::class, 'client_contacts', 'contact_type_id', 'client_id');
+    }
+
+    /**
+     * Custom clients_number attribute for contact type model
+     *
+     * @return int
+     */
+    public function getClientsNumberAttribute()
+    {
+        return $this->clients()->count();
     }
 }

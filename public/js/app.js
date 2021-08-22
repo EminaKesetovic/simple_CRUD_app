@@ -2006,6 +2006,22 @@ var IndustryTypeEdit = function IndustryTypeEdit() {
   return __webpack_require__.e(/*! import() | resource/js/components/industry_type/edit */ "resource/js/components/industry_type/edit").then(__webpack_require__.bind(__webpack_require__, /*! ./components/industry_type/Edit.vue */ "./resources/js/components/industry_type/Edit.vue"));
 };
 
+var ClientList = function ClientList() {
+  return __webpack_require__.e(/*! import() | resource/js/components/client/list */ "resource/js/components/client/list").then(__webpack_require__.bind(__webpack_require__, /*! ./components/client/List.vue */ "./resources/js/components/client/List.vue"));
+};
+
+var ClientCreate = function ClientCreate() {
+  return __webpack_require__.e(/*! import() | resource/js/components/client/add */ "resource/js/components/client/add").then(__webpack_require__.bind(__webpack_require__, /*! ./components/client/Add.vue */ "./resources/js/components/client/Add.vue"));
+};
+
+var ClientEdit = function ClientEdit() {
+  return __webpack_require__.e(/*! import() | resource/js/components/client/edit */ "resource/js/components/client/edit").then(__webpack_require__.bind(__webpack_require__, /*! ./components/client/Edit.vue */ "./resources/js/components/client/Edit.vue"));
+};
+
+var ClientShow = function ClientShow() {
+  return __webpack_require__.e(/*! import() | resource/js/components/client/show */ "resource/js/components/client/show").then(__webpack_require__.bind(__webpack_require__, /*! ./components/client/Show.vue */ "./resources/js/components/client/Show.vue"));
+};
+
 var routes = [{
   name: 'home',
   path: '/',
@@ -2058,6 +2074,22 @@ var routes = [{
   name: 'industryTypeAdd',
   path: '/industry_type/add',
   component: IndustryTypeCreate
+}, {
+  name: 'clientList',
+  path: '/client',
+  component: ClientList
+}, {
+  name: 'clientEdit',
+  path: '/client/:id/edit',
+  component: ClientEdit
+}, {
+  name: 'clientAdd',
+  path: '/client/add',
+  component: ClientCreate
+}, {
+  name: 'clientShow',
+  path: '/client/:id',
+  component: ClientShow
 }];
 
 /***/ }),
@@ -19590,7 +19622,7 @@ var render = function() {
           _c(
             "router-link",
             { staticClass: "navbar-brand", attrs: { to: "/", href: "#" } },
-            [_vm._v("Simple CRUD app")]
+            [_vm._v("Home")]
           ),
           _vm._v(" "),
           _c("div", { staticClass: "collapse navbar-collapse" }, [
@@ -19602,9 +19634,9 @@ var render = function() {
                   "router-link",
                   {
                     staticClass: "nav-item nav-link",
-                    attrs: { "exact-active-class": "active", to: "/" }
+                    attrs: { "exact-active-class": "active", to: "/client" }
                   },
-                  [_vm._v("Home")]
+                  [_vm._v("Clients")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -35090,7 +35122,7 @@ Vue.compile = compileToFunctions;
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resource/js/components/welcome":1,"resource/js/components/city/list":1,"resource/js/components/city/add":1,"resource/js/components/city/edit":1,"resource/js/components/contact_type/list":1,"resource/js/components/contact_type/add":1,"resource/js/components/contact_type/edit":1,"resource/js/components/country/list":1,"resource/js/components/country/add":1,"resource/js/components/country/edit":1,"resource/js/components/industry_type/list":1,"resource/js/components/industry_type/add":1,"resource/js/components/industry_type/edit":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resource/js/components/welcome":1,"resource/js/components/city/list":1,"resource/js/components/city/add":1,"resource/js/components/city/edit":1,"resource/js/components/contact_type/list":1,"resource/js/components/contact_type/add":1,"resource/js/components/contact_type/edit":1,"resource/js/components/country/list":1,"resource/js/components/country/add":1,"resource/js/components/country/edit":1,"resource/js/components/industry_type/list":1,"resource/js/components/industry_type/add":1,"resource/js/components/industry_type/edit":1,"resource/js/components/client/list":1,"resource/js/components/client/add":1,"resource/js/components/client/edit":1,"resource/js/components/client/show":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

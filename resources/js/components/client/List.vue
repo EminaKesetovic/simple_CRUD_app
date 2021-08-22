@@ -1,13 +1,13 @@
 <template>
     <div class="row">
         <div class="col-12 mb-2 text-end">
-            <button class="btn btn-success" v-on:click="getCities()">Refresh</button>
-            <router-link :to='{name:"cityAdd"}' class="btn btn-primary">Create</router-link>
+            <button class="btn btn-primary" v-on:click="getClients()">Refresh</button>
+            <router-link :to='{name:"clientAdd"}' class="btn btn-primary">Create</router-link>
         </div>
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>City</h4>
+                    <h4>Client</h4>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -21,22 +21,31 @@
                                 <tr>
                                     <th v-on:click="sortBy('id')">ID</th>
                                     <th v-on:click="sortBy('name')">Name</th>
+                                    <th v-on:click="sortBy('address')">Address</th>
+                                    <th v-on:click="sortBy('city_name')">City</th>
+                                    <th v-on:click="sortBy('country_name')">Country</th>
+                                    <th v-on:click="sortBy('industry_type_name')">Type of industry</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody v-if="cities.length > 0">
-                                <tr v-for="(city,key) in sortedCities" :key="key">
-                                    <td>{{ city.id }}</td>
-                                    <td>{{ city.name }}</td>
+                            <tbody v-if="clients.length > 0">
+                                <tr v-for="(client,key) in sortedClients" :key="key">
+                                    <td>{{ client.id }}</td>
+                                    <td>{{ client.name }}</td>
+                                    <td>{{ client.address }}</td>
+                                    <td>{{ client.city_name }}</td>
+                                    <td>{{ client.country_name }}</td>
+                                    <td>{{ client.industry_type_name }}</td>
                                     <td>
-                                        <router-link :to='{name:"cityEdit",params:{id:city.id}}' class="btn btn-success">Edit</router-link>
-                                        <button v-if="city.clients_number == 0" type="button" v-on:click="deleteCity(city.id)" class="btn btn-danger">Delete</button>
+                                        <router-link :to='{name:"clientEdit",params:{id:client.id}}' class="btn btn-success">Edit</router-link>
+                                        <button type="button" v-on:click="deleteClient(client.id)" class="btn btn-danger">Delete</button>
+                                        <router-link :to='{name:"clientShow",params:{id:client.id}}' class="btn btn-success">Show</router-link>
                                     </td>
                                 </tr>
                             </tbody>
                             <tbody v-else>
                                 <tr>
-                                    <td colspan="4" align="center">No Cities Found.</td>
+                                    <td colspan="7" align="center">No Clients Found.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -49,25 +58,25 @@
 
 <script>
 export default {
-    name:"cities",
+    name:"clients",
     data(){
         return {
             currentSort:'id',
             currentSortDir:'asc',
             filter:'',
-            cities:[]
+            clients:[]
         }
     },
     mounted(){
-        this.getCities()
+        this.getClients()
     },
     methods:{
-        async getCities(){
-            await this.axios.get('/api/city').then(response=>{
-                this.cities = response.data
+        async getClients(){
+            await this.axios.get('/api/client').then(response=>{
+                this.clients = response.data
             }).catch(error=>{
                 console.log(error)
-                this.cities = []
+                this.clients = []
             })
         },
         sortBy(column) {
@@ -77,10 +86,10 @@ export default {
             }
             this.currentSort = column;
         },
-        deleteCity(id){
-            if(confirm("Are you sure to delete this city ?")){
-                this.axios.delete(`/api/city/${id}`).then(response=>{
-                    this.getCities()
+        deleteClient(id){
+            if(confirm("Are you sure to delete this client ?")){
+                this.axios.delete(`/api/client/${id}`).then(response=>{
+                    this.getClients()
                 }).catch(error=>{
                     console.log(error)
                 })
@@ -88,14 +97,14 @@ export default {
         }
     },
     computed:{
-        filteredCities() {
-            return this.cities.filter(city => {
+        filteredClients() {
+            return this.clients.filter(client => {
                 if(this.filter == '') return true;
-                return city.name.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0;
+                return client.name.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0;
             })
         },
-        sortedCities:function() {
-            return this.filteredCities.sort((a,b) => {
+        sortedClients:function() {
+            return this.filteredClients.sort((a,b) => {
                 let modifier = 1;
                 if(this.currentSortDir === 'desc') modifier = -1;
                 if(a[this.currentSort] < b[this.currentSort]) return -1 * modifier;

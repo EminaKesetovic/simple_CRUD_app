@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col-12 mb-2 text-end">
-            <button class="btn btn-primary" @click="getCountries()">Refresh</button>
+            <button class="btn btn-success" v-on:click="getCountries()">Refresh</button>
             <router-link :to='{name:"countryAdd"}' class="btn btn-primary">Create</router-link>
         </div>
         <div class="col-12">
@@ -30,7 +30,7 @@
                                     <td>{{ country.name }}</td>
                                     <td>
                                         <router-link :to='{name:"countryEdit",params:{id:country.id}}' class="btn btn-success">Edit</router-link>
-                                        <button type="button" @click="deleteCountry(country.id)" class="btn btn-danger">Delete</button>
+                                        <button v-if="country.clients_number == 0" type="button" v-on:click="deleteCountry(country.id)" class="btn btn-danger">Delete</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -89,9 +89,9 @@ export default {
     },
     computed:{
         filteredCountries() {
-            return this.countries.filter(c => {
+            return this.countries.filter(country => {
                 if(this.filter == '') return true;
-                return c.name.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0;
+                return country.name.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0;
             })
         },
         sortedCountries:function() {

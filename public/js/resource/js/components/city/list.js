@@ -141,9 +141,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     filteredCities: function filteredCities() {
       var _this3 = this;
 
-      return this.cities.filter(function (c) {
+      return this.cities.filter(function (city) {
         if (_this3.filter == '') return true;
-        return c.name.toLowerCase().indexOf(_this3.filter.toLowerCase()) >= 0;
+        return city.name.toLowerCase().indexOf(_this3.filter.toLowerCase()) >= 0;
       });
     },
     sortedCities: function sortedCities() {
@@ -1022,7 +1022,7 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "btn btn-primary",
+            staticClass: "btn btn-success",
             on: {
               click: function($event) {
                 return _vm.getCities()
@@ -1133,19 +1133,21 @@ var render = function() {
                               [_vm._v("Edit")]
                             ),
                             _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-danger",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.deleteCity(city.id)
-                                  }
-                                }
-                              },
-                              [_vm._v("Delete")]
-                            )
+                            city.clients_number == 0
+                              ? _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-danger",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.deleteCity(city.id)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Delete")]
+                                )
+                              : _vm._e()
                           ],
                           1
                         )

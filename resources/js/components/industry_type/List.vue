@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col-12 mb-2 text-end">
-            <button class="btn btn-primary" @click="getIndustryTypes()">Refresh</button>
+            <button class="btn btn-success" v-on:click="getIndustryTypes()">Refresh</button>
             <router-link :to='{name:"industryTypeAdd"}' class="btn btn-primary">Create</router-link>
         </div>
         <div class="col-12">
@@ -30,7 +30,7 @@
                                     <td>{{ industry_type.name }}</td>
                                     <td>
                                         <router-link :to='{name:"industryTypeEdit",params:{id:industry_type.id}}' class="btn btn-success">Edit</router-link>
-                                        <button type="button" @click="deleteIndustryType(industry_type.id)" class="btn btn-danger">Delete</button>
+                                        <button v-if="industry_type.clients_number == 0" type="button" v-on:click="deleteIndustryType(industry_type.id)" class="btn btn-danger">Delete</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -89,9 +89,9 @@ export default {
     },
     computed:{
         filteredIndustryTypes() {
-            return this.industry_types.filter(c => {
+            return this.industry_types.filter(industry_type => {
                 if(this.filter == '') return true;
-                return c.name.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0;
+                return industry_type.name.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0;
             })
         },
         sortedIndustryTypes:function() {
