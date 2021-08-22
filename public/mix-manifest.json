@@ -1,0 +1,17 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/js/resource/js/components/welcome.js": "/js/resource/js/components/welcome.js",
+    "/js/resource/js/components/city/list.js": "/js/resource/js/components/city/list.js",
+    "/js/resource/js/components/city/add.js": "/js/resource/js/components/city/add.js",
+    "/js/resource/js/components/city/edit.js": "/js/resource/js/components/city/edit.js",
+    "/js/resource/js/components/contact_type/list.js": "/js/resource/js/components/contact_type/list.js",
+    "/js/resource/js/components/contact_type/add.js": "/js/resource/js/components/contact_type/add.js",
+    "/js/resource/js/components/contact_type/edit.js": "/js/resource/js/components/contact_type/edit.js",
+    "/js/resource/js/components/country/list.js": "/js/resource/js/components/country/list.js",
+    "/js/resource/js/components/country/add.js": "/js/resource/js/components/country/add.js",
+    "/js/resource/js/components/country/edit.js": "/js/resource/js/components/country/edit.js",
+    "/js/resource/js/components/industry_type/list.js": "/js/resource/js/components/industry_type/list.js",
+    "/js/resource/js/components/industry_type/add.js": "/js/resource/js/components/industry_type/add.js",
+    "/js/resource/js/components/industry_type/edit.js": "/js/resource/js/components/industry_type/edit.js",
+    "/css/app.css": "/css/app.css"
+}
