@@ -24,4 +24,14 @@ class City extends Model
         'updated_at',
         'created_at'
     ];
+
+    /**
+     * Get the clients for the city.
+     *
+     * @return \App\Models\Client
+     */
+    public function clients()
+    {
+        return $this->hasMany(Client::class);
+    }
 }

@@ -10,7 +10,7 @@ class Country extends Model
     use HasFactory;
 
     /**
-     * Fillable columns in table cities
+     * Fillable columns in table countries
      * @var array
      */
     protected $fillable = ['name'];
@@ -24,4 +24,14 @@ class Country extends Model
         'updated_at',
         'created_at'
     ];
+
+    /**
+     * Get the clients for the country.
+     *
+     * @return \App\Models\Client
+     */
+    public function clients()
+    {
+        return $this->hasMany(Client::class);
+    }
 }

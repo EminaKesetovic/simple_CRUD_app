@@ -14,7 +14,7 @@ class CreateIndustryTypesTable extends Migration
     public function up()
     {
         Schema::create('industry_types', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('name', 250);
             $table->timestamps();
         });

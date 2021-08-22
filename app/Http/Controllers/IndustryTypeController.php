@@ -8,7 +8,7 @@ use App\Models\IndustryType;
 class IndustryTypeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the industry types.
      *
      * @return \Illuminate\Http\Response
      */
@@ -20,7 +20,7 @@ class IndustryTypeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created industry type in storage.
      *
      * @param  App\Http\Requests\IndustryTypeRequest  $request
      * @return \Illuminate\Http\Response
@@ -36,7 +36,7 @@ class IndustryTypeController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified industry type.
      *
      * @param  \App\Models\IndustryType  $industryType
      * @return \Illuminate\Http\Response
@@ -47,7 +47,7 @@ class IndustryTypeController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified industry type in storage.
      *
      * @param  App\Http\Requests\IndustryTypeRequest  $request
      * @param  \App\Models\IndustryType  $industryType
@@ -64,7 +64,7 @@ class IndustryTypeController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified industry type from storage.
      *
      * @param  \App\Models\IndustryType  $industryType
      * @return \Illuminate\Http\Response

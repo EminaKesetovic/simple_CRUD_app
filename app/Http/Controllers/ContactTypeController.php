@@ -7,8 +7,8 @@ use App\Models\ContactType;
 
 class ContactTypeController extends Controller
 {
-        /**
-     * Display a listing of the resource.
+    /**
+     * Display a listing of the contact types.
      *
      * @return \Illuminate\Http\Response
      */
@@ -20,7 +20,7 @@ class ContactTypeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created contact type in storage.
      *
      * @param  App\Http\Requests\IndustryTypeRequest  $request
      * @return \Illuminate\Http\Response
@@ -36,7 +36,7 @@ class ContactTypeController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified contact type.
      *
      * @param  \App\Models\ContactType  $contactType
      * @return \Illuminate\Http\Response
@@ -47,7 +47,7 @@ class ContactTypeController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified contact type in storage.
      *
      * @param  App\Http\Requests\IndustryTypeRequest  $request
      * @param  \App\Models\ContactType  $contactType
@@ -64,7 +64,7 @@ class ContactTypeController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified contact type from storage.
      *
      * @param  \App\Models\ContactType  $contactType
      * @return \Illuminate\Http\Response

@@ -10,7 +10,7 @@ class IndustryType extends Model
     use HasFactory;
 
     /**
-     * Fillable columns in table cities
+     * Fillable columns in table industry_types
      * @var array
      */
     protected $fillable = ['name'];
@@ -24,4 +24,14 @@ class IndustryType extends Model
         'updated_at',
         'created_at'
     ];
+
+    /**
+     * Get the clients for the industry type.
+     *
+     * @return \App\Models\Client
+     */
+    public function clients()
+    {
+        return $this->hasMany(Client::class);
+    }
 }

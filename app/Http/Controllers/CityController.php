@@ -8,7 +8,7 @@ use App\Models\City;
 class CityController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the cities.
      *
      * @return \Illuminate\Http\Response
      */
@@ -20,7 +20,7 @@ class CityController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created city in storage.
      *
      * @param  App\Http\Requests\CityRequest  $request
      * @return \Illuminate\Http\Response
@@ -36,7 +36,7 @@ class CityController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified city.
      *
      * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
@@ -47,7 +47,7 @@ class CityController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified city in storage.
      *
      * @param  App\Http\Requests\CityRequest  $request
      * @param  \App\Models\City  $city
@@ -64,7 +64,7 @@ class CityController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified city from storage.
      *
      * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response

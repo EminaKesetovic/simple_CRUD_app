@@ -7,8 +7,8 @@ use App\Models\Country;
 
 class CountryController extends Controller
 {
-        /**
-     * Display a listing of the resource.
+    /**
+     * Display a listing of the countries.
      *
      * @return \Illuminate\Http\Response
      */
@@ -20,7 +20,7 @@ class CountryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created country in storage.
      *
      * @param  App\Http\Requests\CountryRequest  $request
      * @return \Illuminate\Http\Response
@@ -36,7 +36,7 @@ class CountryController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified country.
      *
      * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
@@ -47,7 +47,7 @@ class CountryController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified country in storage.
      *
      * @param  App\Http\Requests\CountryRequest  $request
      * @param  \App\Models\Country  $country
@@ -64,7 +64,7 @@ class CountryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified country from storage.
      *
      * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response

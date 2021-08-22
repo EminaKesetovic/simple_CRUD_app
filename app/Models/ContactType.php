@@ -10,7 +10,7 @@ class ContactType extends Model
     use HasFactory;
 
     /**
-     * Fillable columns in table cities
+     * Fillable columns in table contact_types
      * @var array
      */
     protected $fillable = ['name'];
@@ -24,4 +24,14 @@ class ContactType extends Model
         'updated_at',
         'created_at'
     ];
+
+    /**
+     * The clients that belong to the contact type.
+     *
+     * @return \App\Models\ContactType
+     */
+    public function clients()
+    {
+        return $this->belongsToMany(Client::class, 'client_contacts', 'contact_type_id', 'client_id');
+    }
 }

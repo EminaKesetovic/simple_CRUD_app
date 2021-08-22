@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContactTypeController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\IndustryTypeController;
@@ -29,3 +30,5 @@ Route::resource('country', CountryController::class)->only(['index','store','sho
 Route::resource('contact_type', ContactTypeController::class)->only(['index','store','show','update','destroy']);
 
 Route::resource('industry_type', IndustryTypeController::class)->only(['index','store','show','update','destroy']);
+
+Route::resource('client', ClientController::class)->only(['index','store','show','update','destroy']);
