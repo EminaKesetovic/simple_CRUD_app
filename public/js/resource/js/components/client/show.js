@@ -80,27 +80,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "client",
   data: function data() {
     return {
       client: '',
-      clients: []
+      contacts: []
     };
   },
   mounted: function mounted() {
@@ -118,6 +103,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.next = 2;
                 return _this.axios.get("/api/client/".concat(_this.$route.params.id)).then(function (response) {
                   _this.client = response.data;
+                  _this.contacts = response.data.contacttypes;
                 })["catch"](function (error) {
                   console.log(error);
                 });
@@ -995,69 +981,54 @@ var render = function() {
         _c("div", { staticClass: "card-body" }, [
           _c("div", { staticClass: "col-12 mb-2" }, [
             _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Name")]),
-              _vm._v(" "),
+              _c("b", [_vm._v("Name: ")]),
               _c("p", [_vm._v(_vm._s(_vm.client.name))])
             ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-12 mb-2" }, [
             _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Address")]),
-              _vm._v(" "),
+              _c("b", [_vm._v("Address: ")]),
               _c("p", [_vm._v(_vm._s(_vm.client.address))])
             ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-12 mb-2" }, [
             _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("City")]),
-              _vm._v(" "),
+              _c("b", [_vm._v("City: ")]),
               _c("p", [_vm._v(_vm._s(_vm.client.city_name))])
             ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-12 mb-2" }, [
             _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Country")]),
-              _vm._v(" "),
+              _c("b", [_vm._v("Country: ")]),
               _c("p", [_vm._v(_vm._s(_vm.client.country_name))])
             ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-12 mb-2" }, [
             _c("div", { staticClass: "form-group" }, [
-              _c("label", [_vm._v("Type of industry")]),
-              _vm._v(" "),
+              _c("b", [_vm._v("Industry type: ")]),
               _c("p", [_vm._v(_vm._s(_vm.client.industry_type_name))])
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "table-responsive" }, [
-            _c("table", { staticClass: "table table-bordered" }, [
-              _vm._m(1),
+          _c("div", { staticClass: "col-12 mb-2" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c("b", [_vm._v("Contacts: ")]),
               _vm._v(" "),
-              _vm.clients.length > 0
-                ? _c(
-                    "tbody",
-                    _vm._l(_vm.sortedClients, function(client, key) {
-                      return _c("tr", { key: key }, [
-                        _c("td", [_vm._v(_vm._s(client.id))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(client.name))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(client.address))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(client.city_name))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(client.country_name))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(client.industry_type_name))])
-                      ])
-                    }),
-                    0
-                  )
-                : _vm._e()
+              _c(
+                "ul",
+                _vm._l(_vm.contacts, function(contact, key) {
+                  return _c("li", { key: key }, [
+                    _c("b", [_vm._v(_vm._s(contact.name) + ":")]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v(_vm._s(contact.pivot.contact))])
+                  ])
+                }),
+                0
+              )
             ])
           ])
         ])
@@ -1072,18 +1043,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("h4", [_vm._v("Client")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("ID")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Name")])
-      ])
     ])
   }
 ]

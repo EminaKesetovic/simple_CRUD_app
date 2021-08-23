@@ -63,8 +63,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "add-industry_type",
   data: function data() {
@@ -975,9 +973,11 @@ var render = function() {
       _c("div", { staticClass: "card" }, [
         _vm._m(0),
         _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _vm.errors.length
-            ? _c("p", [
+        _vm.errors.length
+          ? _c(
+              "div",
+              { staticClass: "alert alert-danger", attrs: { role: "alert" } },
+              [
                 _c("b", [_vm._v("Please correct the following error(s):")]),
                 _vm._v(" "),
                 _c(
@@ -987,9 +987,9 @@ var render = function() {
                   }),
                   0
                 )
-              ])
-            : _vm._e()
-        ]),
+              ]
+            )
+          : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
           _c(

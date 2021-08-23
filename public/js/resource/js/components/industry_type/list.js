@@ -79,6 +79,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "industry_types",
   data: function data() {
@@ -1022,7 +1023,7 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "btn btn-success",
+            staticClass: "btn btn-primary",
             on: {
               click: function($event) {
                 return _vm.getIndustryTypes()
@@ -1035,7 +1036,7 @@ var render = function() {
         _c(
           "router-link",
           {
-            staticClass: "btn btn-primary",
+            staticClass: "btn btn-success",
             attrs: { to: { name: "industryTypeAdd" } }
           },
           [_vm._v("Create")]
@@ -1061,7 +1062,10 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "search" },
+                attrs: {
+                  type: "search",
+                  placeholder: "Search industry types..."
+                },
                 domProps: { value: _vm.filter },
                 on: {
                   input: function($event) {
@@ -1074,6 +1078,8 @@ var render = function() {
               })
             ])
           ]),
+          _vm._v(" "),
+          _c("br"),
           _vm._v(" "),
           _c("div", { staticClass: "table-responsive" }, [
             _c("table", { staticClass: "table table-bordered" }, [

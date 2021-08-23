@@ -16,6 +16,6 @@
     "/js/resource/js/components/client/list.js": "/js/resource/js/components/client/list.js",
     "/js/resource/js/components/client/add.js": "/js/resource/js/components/client/add.js",
     "/js/resource/js/components/client/edit.js": "/js/resource/js/components/client/edit.js",
-    "/css/app.css": "/css/app.css",
-    "/js/resource/js/components/client/show.js": "/js/resource/js/components/client/show.js"
+    "/js/resource/js/components/client/show.js": "/js/resource/js/components/client/show.js",
+    "/css/app.css": "/css/app.css"
 }

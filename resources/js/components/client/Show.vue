@@ -8,54 +8,39 @@
                 <div class="card-body">
                     <div class="col-12 mb-2">
                         <div class="form-group">
-                            <label>Name</label>
-                            <p>{{ client.name }}</p>
+                            <b>Name: </b><p>{{ client.name }}</p>
                         </div>
                     </div>
                     <div class="col-12 mb-2">
                         <div class="form-group">
-                            <label>Address</label>
-                            <p>{{ client.address }}</p>
+                            <b>Address: </b><p>{{ client.address }}</p>
                         </div>
                     </div>
                     <div class="col-12 mb-2">
                         <div class="form-group">
-                            <label>City</label>
-                            <p>{{ client.city_name }}</p>
+                            <b>City: </b><p>{{ client.city_name }}</p>
                         </div>
                     </div>
                     <div class="col-12 mb-2">
                         <div class="form-group">
-                            <label>Country</label>
-                            <p>{{ client.country_name }}</p>
+                            <b>Country: </b><p>{{ client.country_name }}</p>
                         </div>
                     </div>
                     <div class="col-12 mb-2">
                         <div class="form-group">
-                            <label>Type of industry</label>
-                            <p>{{ client.industry_type_name }}</p>
+                            <b>Industry type: </b><p>{{ client.industry_type_name }}</p>
                         </div>
                     </div>
+                    <div class="col-12 mb-2">
+                        <div class="form-group">
+                            <b>Contacts: </b>
+                             <ul>
+                                <li v-for="(contact,key) in contacts" :key="key">
+                                    <b>{{ contact.name }}:</b> <p>{{ contact.pivot.contact }}</p>
+                                </li>
+                            </ul>
 
-                    <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                </tr>
-                            </thead>
-                            <tbody v-if="clients.length > 0">
-                                <tr v-for="(client,key) in sortedClients" :key="key">
-                                    <td>{{ client.id }}</td>
-                                    <td>{{ client.name }}</td>
-                                    <td>{{ client.address }}</td>
-                                    <td>{{ client.city_name }}</td>
-                                    <td>{{ client.country_name }}</td>
-                                    <td>{{ client.industry_type_name }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -69,7 +54,7 @@ export default {
     data(){
         return {
             client:'',
-            clients:[]
+            contacts:[]
         }
     },
     mounted(){
@@ -79,6 +64,7 @@ export default {
         async showClient(){
             await this.axios.get(`/api/client/${this.$route.params.id}`).then(response=>{
                 this.client = response.data
+                this.contacts = response.data.contacttypes
             }).catch(error=>{
                 console.log(error)
             })

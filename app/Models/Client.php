@@ -40,7 +40,8 @@ class Client extends Model
     protected $appends = [
         'city_name',
         'country_name',
-        'industry_type_name'
+        'industry_type_name',
+        'contacts'
     ];
 
 
@@ -113,6 +114,26 @@ class Client extends Model
     public function getIndustryTypeNameAttribute()
     {
         return is_null($this->industrytype) ? NULL : $this->industrytype->name;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function getContactsAttribute()
+    {
+
+        $contacts = [];
+        foreach ($this->contacttypes as $contact) {
+            $contactObj = new \stdClass();
+
+            $contactObj->contact_type_id = $contact->pivot->contact_type_id;
+            $contactObj->contact = $contact->pivot->contact;
+
+            $contacts[] = $contactObj;
+        }
+        return $contacts;
     }
 
 

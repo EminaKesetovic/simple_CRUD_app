@@ -98,6 +98,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "update-client",
   data: function data() {
@@ -108,22 +126,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         city_id: "",
         country_id: "",
         industry_type_id: "",
-        contacts: {
+        contacts: [{
           contact_type_id: "",
           contact: ""
-        },
+        }],
         _method: "patch"
       },
       cities: [],
       countries: [],
       industry_types: [],
+      contact_types: [],
+      valid: true,
       errors: []
     };
   },
   mounted: function mounted() {
-    this.showClient(), this.getCities(), this.getCountries(), this.getIndustryTypes();
+    this.showClient(), this.getCities(), this.getCountries(), this.getIndustryTypes(), this.getContactTypes();
   },
   methods: {
+    addContact: function addContact() {
+      this.client.contacts.push({
+        contact_type_id: '',
+        contact: ''
+      });
+    },
+    deleteContact: function deleteContact(key) {
+      this.client.contacts.splice(key, 1);
+    },
     showClient: function showClient() {
       var _this = this;
 
@@ -139,6 +168,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.client.city_id = response.data.city_id;
                   _this.client.country_id = response.data.country_id;
                   _this.client.industry_type_id = response.data.industry_type_id;
+                  _this.client.contacts = response.data.contacts;
                 })["catch"](function (error) {
                   console.log(error);
                 });
@@ -223,7 +253,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee4);
       }))();
     },
-    update: function update() {
+    getContactTypes: function getContactTypes() {
       var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
@@ -231,33 +261,105 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                _this5.errors = [];
+                _context5.next = 2;
+                return _this5.axios.get('/api/contact_type').then(function (response) {
+                  _this5.contact_types = response.data;
+                })["catch"](function (error) {
+                  console.log(error);
+                  _this5.contact_types = [];
+                });
 
-                if (!_this5.client.name) {
-                  _context5.next = 4;
+              case 2:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    },
+    update: function update() {
+      var _this6 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6() {
+        var i;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _this6.errors = [];
+                _this6.valid = true;
+
+                if (!_this6.client.address) {
+                  _this6.valid = false;
+
+                  _this6.errors.push('Address required.');
+                }
+
+                if (!_this6.client.city_id) {
+                  _this6.valid = false;
+
+                  _this6.errors.push('City required.');
+                }
+
+                if (!_this6.client.country_id) {
+                  _this6.valid = false;
+
+                  _this6.errors.push('Country required.');
+                }
+
+                i = 0;
+
+              case 6:
+                if (!(i < _this6.client.contacts.length)) {
+                  _context6.next = 14;
                   break;
                 }
 
-                _context5.next = 4;
-                return _this5.axios.post("/api/client/".concat(_this5.$route.params.id), _this5.client).then(function (response) {
-                  _this5.$router.push({
+                if (!_this6.client.contacts[i].contact_type_id) {
+                  _this6.valid = false;
+
+                  _this6.errors.push('Contact type required.');
+                }
+
+                if (!_this6.client.contacts[i].contact) {
+                  _this6.valid = false;
+
+                  _this6.errors.push('Contact required.');
+                }
+
+                if (_this6.valid) {
+                  _context6.next = 11;
+                  break;
+                }
+
+                return _context6.abrupt("break", 14);
+
+              case 11:
+                i++;
+                _context6.next = 6;
+                break;
+
+              case 14:
+                if (!_this6.valid) {
+                  _context6.next = 17;
+                  break;
+                }
+
+                _context6.next = 17;
+                return _this6.axios.post("/api/client/".concat(_this6.$route.params.id), _this6.client).then(function (response) {
+                  _this6.$router.push({
                     name: "clientList"
                   });
                 })["catch"](function (error) {
                   console.log(error);
                 });
 
-              case 4:
-                if (!_this5.client.name) {
-                  _this5.errors.push('Name required.');
-                }
-
-              case 5:
+              case 17:
               case "end":
-                return _context5.stop();
+                return _context6.stop();
             }
           }
-        }, _callee5);
+        }, _callee6);
       }))();
     }
   }
@@ -1122,9 +1224,11 @@ var render = function() {
       _c("div", { staticClass: "card" }, [
         _vm._m(0),
         _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _vm.errors.length
-            ? _c("p", [
+        _vm.errors.length
+          ? _c(
+              "div",
+              { staticClass: "alert alert-danger", attrs: { role: "alert" } },
+              [
                 _c("b", [_vm._v("Please correct the following error(s):")]),
                 _vm._v(" "),
                 _c(
@@ -1134,9 +1238,9 @@ var render = function() {
                   }),
                   0
                 )
-              ])
-            : _vm._e()
-        ]),
+              ]
+            )
+          : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
           _c(
@@ -1150,236 +1254,380 @@ var render = function() {
               }
             },
             [
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-12 mb-2" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", [_vm._v("Name")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
+              _c(
+                "div",
+                { staticClass: "row" },
+                [
+                  _c("div", { staticClass: "col-12 mb-2" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Name")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.client.name,
+                            expression: "client.name"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", maxlength: "250" },
+                        domProps: { value: _vm.client.name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.client, "name", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-12 mb-2" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Address")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.client.address,
+                            expression: "client.address"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", maxlength: "250" },
+                        domProps: { value: _vm.client.address },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.client, "address", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-12 mb-2" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("City")]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
                         {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.client.name,
-                          expression: "client.name"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.client.name },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.client.city_id,
+                              expression: "client.city_id"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.client,
+                                "city_id",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
                           }
-                          _vm.$set(_vm.client, "name", $event.target.value)
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-12 mb-2" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", [_vm._v("Address")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
+                        },
+                        [
+                          _c(
+                            "option",
+                            {
+                              attrs: { value: "", selected: "", disabled: "" }
+                            },
+                            [_vm._v("Choose city")]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.cities, function(city, key) {
+                            return _c(
+                              "option",
+                              { key: key, domProps: { value: city.id } },
+                              [_vm._v(_vm._s(city.name))]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-12 mb-2" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Country")]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
                         {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.client.address,
-                          expression: "client.address"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.client.address },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.client.country_id,
+                              expression: "client.country_id"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.client,
+                                "country_id",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
                           }
-                          _vm.$set(_vm.client, "address", $event.target.value)
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-12 mb-2" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", [_vm._v("City")]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.client.city_id,
-                            expression: "client.city_id"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.client,
-                              "city_id",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
+                        },
+                        [
+                          _c(
+                            "option",
+                            {
+                              attrs: { value: "", selected: "", disabled: "" }
+                            },
+                            [_vm._v("Choose country")]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.countries, function(country, key) {
+                            return _c(
+                              "option",
+                              { key: key, domProps: { value: country.id } },
+                              [_vm._v(_vm._s(country.name))]
                             )
+                          })
+                        ],
+                        2
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-12 mb-2" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Industry type")]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.client.industry_type_id,
+                              expression: "client.industry_type_id"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.client,
+                                "industry_type_id",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            {
+                              attrs: { value: "", selected: "", disabled: "" }
+                            },
+                            [_vm._v("Choose type of industry")]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.industry_types, function(
+                            industry_type,
+                            key
+                          ) {
+                            return _c(
+                              "option",
+                              {
+                                key: key,
+                                domProps: { value: industry_type.id }
+                              },
+                              [_vm._v(_vm._s(industry_type.name))]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("b", [_vm._v("Contacts:")]),
+                  _vm._v(" "),
+                  _vm._l(_vm.client.contacts, function(contact, key) {
+                    return _c("div", { key: key, staticClass: "col-12 mb-2" }, [
+                      key != 0
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteContact(key)
+                                }
+                              }
+                            },
+                            [_vm._v("x")]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Contact type")]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: contact.contact_type_id,
+                                expression: "contact.contact_type_id"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  contact,
+                                  "contact_type_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                attrs: { value: "", selected: "", disabled: "" }
+                              },
+                              [_vm._v("Choose type of contact")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.contact_types, function(
+                              contact_type,
+                              key
+                            ) {
+                              return _c(
+                                "option",
+                                {
+                                  key: key,
+                                  domProps: { value: contact_type.id }
+                                },
+                                [_vm._v(_vm._s(contact_type.name))]
+                              )
+                            })
+                          ],
+                          2
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Contact")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: contact.contact,
+                              expression: "contact.contact"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", maxlength: "250" },
+                          domProps: { value: contact.contact },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(contact, "contact", $event.target.value)
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("hr")
+                    ])
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-6 mb-4 text-end" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.addContact()
                           }
                         }
                       },
-                      [
-                        _c(
-                          "option",
-                          { attrs: { value: "", selected: "", disabled: "" } },
-                          [_vm._v("Choose city")]
-                        ),
-                        _vm._v(" "),
-                        _vm._l(_vm.cities, function(city, key) {
-                          return _c(
-                            "option",
-                            { key: key, domProps: { value: city.id } },
-                            [_vm._v(_vm._s(city.name))]
-                          )
-                        })
-                      ],
-                      2
+                      [_vm._v("Add another contact")]
                     )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-12 mb-2" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", [_vm._v("Country")]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.client.country_id,
-                            expression: "client.country_id"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.client,
-                              "country_id",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      [
-                        _c(
-                          "option",
-                          { attrs: { value: "", selected: "", disabled: "" } },
-                          [_vm._v("Choose country")]
-                        ),
-                        _vm._v(" "),
-                        _vm._l(_vm.countries, function(country, key) {
-                          return _c(
-                            "option",
-                            { key: key, domProps: { value: country.id } },
-                            [_vm._v(_vm._s(country.name))]
-                          )
-                        })
-                      ],
-                      2
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-12 mb-2" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", [_vm._v("Type of industry")]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.client.industry_type_id,
-                            expression: "client.industry_type_id"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.client,
-                              "industry_type_id",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      [
-                        _c(
-                          "option",
-                          { attrs: { value: "", selected: "", disabled: "" } },
-                          [_vm._v("Choose type of industry")]
-                        ),
-                        _vm._v(" "),
-                        _vm._l(_vm.industry_types, function(
-                          industry_type,
-                          key
-                        ) {
-                          return _c(
-                            "option",
-                            { key: key, domProps: { value: industry_type.id } },
-                            [_vm._v(_vm._s(industry_type.name))]
-                          )
-                        })
-                      ],
-                      2
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _vm._m(1)
-              ])
+                  ]),
+                  _vm._v(" "),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _vm._m(1)
+                ],
+                2
+              )
             ]
           )
         ])

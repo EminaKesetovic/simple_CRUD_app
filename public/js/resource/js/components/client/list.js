@@ -88,6 +88,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "clients",
   data: function data() {
@@ -152,7 +153,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return this.clients.filter(function (client) {
         if (_this3.filter == '') return true;
-        return client.name.toLowerCase().indexOf(_this3.filter.toLowerCase()) >= 0;
+        var names = (client.name ? client.name : '').toLowerCase();
+        var addresses = client.address.toLowerCase();
+        var city_names = client.city_name.toLowerCase();
+        var country_names = client.country_name.toLowerCase();
+        var industry_type_names = (client.industry_type_name ? client.industry_type_name : '').toLowerCase();
+
+        var searchTerm = _this3.filter.toLowerCase();
+
+        return names.includes(searchTerm) || addresses.includes(searchTerm) || city_names.includes(searchTerm) || country_names.includes(searchTerm) || industry_type_names.includes(searchTerm);
       });
     },
     sortedClients: function sortedClients() {
@@ -1044,7 +1053,7 @@ var render = function() {
         _c(
           "router-link",
           {
-            staticClass: "btn btn-primary",
+            staticClass: "btn btn-success",
             attrs: { to: { name: "clientAdd" } }
           },
           [_vm._v("Create")]
@@ -1070,7 +1079,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "form-control",
-                attrs: { type: "search" },
+                attrs: { type: "search", placeholder: "Search clients..." },
                 domProps: { value: _vm.filter },
                 on: {
                   input: function($event) {
@@ -1083,6 +1092,8 @@ var render = function() {
               })
             ])
           ]),
+          _vm._v(" "),
+          _c("br"),
           _vm._v(" "),
           _c("div", { staticClass: "table-responsive" }, [
             _c("table", { staticClass: "table table-bordered" }, [
@@ -1157,7 +1168,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("Type of industry")]
+                    [_vm._v("Industry type")]
                   ),
                   _vm._v(" "),
                   _c("th", [_vm._v("Actions")])
@@ -1215,7 +1226,7 @@ var render = function() {
                             _c(
                               "router-link",
                               {
-                                staticClass: "btn btn-success",
+                                staticClass: "btn btn-primary",
                                 attrs: {
                                   to: {
                                     name: "clientShow",

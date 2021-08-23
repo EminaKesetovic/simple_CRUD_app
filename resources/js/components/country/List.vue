@@ -1,8 +1,8 @@
 <template>
     <div class="row">
         <div class="col-12 mb-2 text-end">
-            <button class="btn btn-success" v-on:click="getCountries()">Refresh</button>
-            <router-link :to='{name:"countryAdd"}' class="btn btn-primary">Create</router-link>
+            <button class="btn btn-primary" v-on:click="getCountries()">Refresh</button>
+            <router-link :to='{name:"countryAdd"}' class="btn btn-success">Create</router-link>
         </div>
         <div class="col-12">
             <div class="card">
@@ -12,9 +12,10 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="form-group">
-                            <input type="search" class="form-control" v-model="filter">
+                            <input type="search" class="form-control" v-model="filter" placeholder="Search countries...">
                         </div>
                     </div>
+                    <br>
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>

@@ -5,13 +5,11 @@
                 <div class="card-header">
                     <h4>Add Client</h4>
                 </div>
-                <div class="row">
-                    <p v-if="errors.length">
-                        <b>Please correct the following error(s):</b>
-                        <ul>
-                            <li v-for="(error,key) in errors" :key="key">{{ error }}</li>
-                        </ul>
-                    </p>
+                <div class="alert alert-danger" role="alert" v-if="errors.length">
+                    <b>Please correct the following error(s):</b>
+                    <ul>
+                        <li v-for="(error,key) in errors" :key="key">{{ error }}</li>
+                    </ul>
                 </div>
                 <div class="card-body">
                     <form @submit.prevent="create">
@@ -48,14 +46,33 @@
                             </div>
                             <div class="col-12 mb-2">
                                 <div class="form-group">
-                                    <label>Type of industry</label>
+                                    <label>Industry type</label>
                                     <select class='form-control' v-model='client.industry_type_id'>
                                         <option value="" selected disabled>Choose type of industry</option>
                                         <option v-for="(industry_type,key) in industry_types" :key="key" :value='industry_type.id'>{{ industry_type.name }}</option>
                                     </select>
                                 </div>
                             </div>
-
+                            <b>Contacts:</b>
+                            <div class="col-12 mb-2" v-for="(contact, key) in client.contacts" v-bind:key="key">
+                                <button type="button" class="btn btn-danger" v-if="key!=0" v-on:click="deleteContact(key)">x</button>
+                                <div class="form-group">
+                                    <label>Contact type</label>
+                                    <select class='form-control' v-model='contact.contact_type_id'>
+                                        <option value="" selected disabled>Choose type of contact</option>
+                                        <option v-for="(contact_type,key) in contact_types" :key="key" :value='contact_type.id'>{{ contact_type.name }}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Contact</label>
+                                    <input type="text" class="form-control" maxlength="250" v-model="contact.contact">
+                                </div>
+                                <hr>
+                            </div>
+                            <div class="col-12 mb-4 text-end">
+                                <button type="button" v-on:click="addContact()" class="btn btn-primary" >Add another contact</button>
+                            </div>
+                            <hr>
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary">Save</button>
                             </div>
@@ -78,14 +95,15 @@ export default {
                 city_id:"",
                 country_id:"",
                 industry_type_id:"",
-                contacts:{
+                contacts:[{
                     contact_type_id:"",
                     contact:""
-                }
+                }]
             },
             cities:[],
             countries:[],
             industry_types:[],
+            contact_types:[],
             valid:true,
             errors:[]
         }
@@ -93,9 +111,19 @@ export default {
     mounted(){
         this.getCities(),
         this.getCountries(),
-        this.getIndustryTypes()
+        this.getIndustryTypes(),
+        this.getContactTypes()
     },
     methods:{
+        addContact(){
+            this.client.contacts.push({
+                contact_type_id:'',
+                contact: ''
+            })
+        },
+        deleteContact(key){
+            this.client.contacts.splice(key,1);
+        },
         async getCities(){
             await this.axios.get('/api/city').then(response=>{
                 this.cities = response.data
@@ -120,6 +148,14 @@ export default {
                 this.industry_types = []
             })
         },
+        async getContactTypes(){
+            await this.axios.get('/api/contact_type').then(response=>{
+                this.contact_types = response.data
+            }).catch(error=>{
+                console.log(error)
+                this.contact_types = []
+            })
+        },
         async create(){
             this.errors = [];
             this.valid = true;
@@ -137,6 +173,19 @@ export default {
             if (!this.client.country_id) {
                 this.valid = false;
                 this.errors.push('Country required.');
+            }
+
+            for (var i = 0; i < this.client.contacts.length; i++) {
+                if (!this.client.contacts[i].contact_type_id) {
+                    this.valid = false;
+                    this.errors.push('Contact type required.');
+                }
+                if (!this.client.contacts[i].contact) {
+                    this.valid = false;
+                    this.errors.push('Contact required.');
+                }
+
+                if (!this.valid) break;
             }
 
             if (this.valid) {

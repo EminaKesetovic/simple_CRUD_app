@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-12 mb-2 text-end">
             <button class="btn btn-primary" v-on:click="getClients()">Refresh</button>
-            <router-link :to='{name:"clientAdd"}' class="btn btn-primary">Create</router-link>
+            <router-link :to='{name:"clientAdd"}' class="btn btn-success">Create</router-link>
         </div>
         <div class="col-12">
             <div class="card">
@@ -12,9 +12,10 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="form-group">
-                            <input type="search" class="form-control" v-model="filter">
+                            <input type="search" class="form-control" v-model="filter"  placeholder="Search clients...">
                         </div>
                     </div>
+                    <br>
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
@@ -24,7 +25,7 @@
                                     <th v-on:click="sortBy('address')">Address</th>
                                     <th v-on:click="sortBy('city_name')">City</th>
                                     <th v-on:click="sortBy('country_name')">Country</th>
-                                    <th v-on:click="sortBy('industry_type_name')">Type of industry</th>
+                                    <th v-on:click="sortBy('industry_type_name')">Industry type</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -39,7 +40,7 @@
                                     <td>
                                         <router-link :to='{name:"clientEdit",params:{id:client.id}}' class="btn btn-success">Edit</router-link>
                                         <button type="button" v-on:click="deleteClient(client.id)" class="btn btn-danger">Delete</button>
-                                        <router-link :to='{name:"clientShow",params:{id:client.id}}' class="btn btn-success">Show</router-link>
+                                        <router-link :to='{name:"clientShow",params:{id:client.id}}' class="btn btn-primary">Show</router-link>
                                     </td>
                                 </tr>
                             </tbody>
@@ -100,7 +101,20 @@ export default {
         filteredClients() {
             return this.clients.filter(client => {
                 if(this.filter == '') return true;
-                return client.name.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0;
+
+                const names = (client.name?client.name:'').toLowerCase();
+                const addresses = client.address.toLowerCase();
+                const city_names = client.city_name.toLowerCase();
+                const country_names = client.country_name.toLowerCase();
+                const industry_type_names = (client.industry_type_name?client.industry_type_name:'').toLowerCase();
+
+                const searchTerm = this.filter.toLowerCase();
+
+                return names.includes(searchTerm) ||
+                       addresses.includes(searchTerm) ||
+                       city_names.includes(searchTerm) ||
+                       country_names.includes(searchTerm) ||
+                       industry_type_names.includes(searchTerm);
             })
         },
         sortedClients:function() {

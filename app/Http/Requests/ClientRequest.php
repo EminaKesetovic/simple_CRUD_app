@@ -24,9 +24,13 @@ class ClientRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => 'max:250',
             'address' => 'required|max:250',
             'city_id' => 'required|exists:cities,id',
-            'country_id' => 'required|exists:countries,id'
+            'country_id' => 'required|exists:countries,id',
+            'contacts.*.contact_type_id' => 'required|exists:contact_types,id',
+            //This can not be this simple with many to many sync. I am not sending id form client_contacts table so i can exclude that one from unique search
+            //'contacts.*.contact' => 'required|unique:client_contacts,contact'
         ];
     }
 }

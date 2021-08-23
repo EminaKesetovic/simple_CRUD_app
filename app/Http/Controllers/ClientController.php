@@ -7,6 +7,13 @@ use App\Models\Client;
 
 class ClientController extends Controller
 {
+    private $model;
+
+    public function __construct(Client $client)
+    {
+        $this->model = $client;
+    }
+
     /**
      * Display a listing of the clients.
      *
@@ -28,6 +35,8 @@ class ClientController extends Controller
     public function store(ClientRequest $request)
     {
         $client = Client::create($request->post());
+
+        $client->contacttypes()->attach($request->post('contacts'));
 
         return response()->json([
                                     'message' => 'Client Created Successfully!!',
@@ -56,6 +65,10 @@ class ClientController extends Controller
     public function update(ClientRequest $request, Client $client)
     {
         $client->fill($request->post())->save();
+
+        $client->contacttypes()->detach();
+
+        $client->contacttypes()->attach($request->post('contacts'));
 
         return response()->json([
                                     'message' => 'Client Updated Successfully!!',
